@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import ImagenCripto from './img/imagen-criptos.png';
+import Formulario from "./components/Formulario";
 
 //Styled component
 const Contenedor = styled.div`
@@ -50,7 +51,9 @@ function App() {
       alt="imagenes criptomonedas"
     />
     <div>
-      <Heading>Cotizador de Criptomonedas</Heading>;
+      <Heading>Cotizador de Criptomonedas</Heading>
+
+      <Formulario />
     </div>
   </Contenedor>
 )}
