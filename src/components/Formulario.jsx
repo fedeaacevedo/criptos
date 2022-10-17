@@ -1,70 +1,61 @@
-import { useEffect } from 'react'
-import styled from '@emotion/styled'
-import useSelectedMonedas from '../hooks/useSelectedMonedas'
-import { monedas } from '../data/monedas'
+import { useEffect } from "react";
+import styled from "@emotion/styled";
+import useSelectedMonedas from "../hooks/useSelectedMonedas";
+import { monedas } from "../data/monedas";
 
 const InputSubmit = styled.input`
-    background-color: #9497ff;
-    border: none;
-    width: 100%;
-    padding: 10px;
-    color: #FFF;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 20px;
-    border-radius: 5px;
-    transition: background-color .3s ease;
-    margin-top: 30px;
-    &:hover{
-        background-color: #7A7DFE;
-        cursor: pointer;
-    }
-`
-
+  background-color: #9497ff;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  margin-top: 30px;
+  &:hover {
+    background-color: #7a7dfe;
+    cursor: pointer;
+  }
+`;
 
 const Formulario = () => {
-
- 
-
   //nuestra lista de monedas se lo pasamos a nuestro hook
-  const [ SelectMonedas ] = useSelectedMonedas('Elije tu moneda', monedas)
+  const [SelectMonedas] = useSelectedMonedas("Elije tu moneda", monedas);
 
   //Hacemos una consulta a la API
-  useEffect( () => {
+  useEffect(() => {
     const consultarAPI = async () => {
-      const url = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD"
-      const respuesta = await fetch(url)
+      const url =
+        "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD";
+      const respuesta = await fetch(url);
       // formateamos nuestra respuesta para visualizarla en formato json
-      const resultado = await respuesta.json()
+      const resultado = await respuesta.json();
       //creamos nuestro arreglo con map
-      const arrayCriptos = resultado.Data.map( cripto => {
-
+      const arrayCriptos = resultado.Data.map((cripto) => {
         const objeto = {
           id: cripto.CoinInfo.Name,
-          nombre: cripto.CoinInfo.FullName
-        }
-        console.log(objeto)
-        
-      })
-
-    }
+          nombre: cripto.CoinInfo.FullName,
+        };
+      
+        return objeto;
+      });
+      console.log(arrayCriptos);
+    };
     consultarAPI();
-  }, [])
+  }, []);
 
-  SelectMonedas()
+  SelectMonedas();
 
   return (
     <form>
-      
       <SelectMonedas />
 
-
-        <InputSubmit 
-            type="submit" 
-            value="Cotizar" 
-        />
+      <InputSubmit type="submit" value="Cotizar" />
     </form>
-  )
-}
+  );
+};
 
-export default Formulario
+export default Formulario;
