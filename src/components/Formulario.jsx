@@ -36,7 +36,17 @@ const Formulario = () => {
       const respuesta = await fetch(url)
       // formateamos nuestra respuesta para visualizarla en formato json
       const resultado = await respuesta.json()
-      console.log(resultado)
+      //creamos nuestro arreglo con map
+      const arrayCriptos = resultado.Data.map( cripto => {
+
+        const objeto = {
+          id: cripto.CoinInfo.Name,
+          nombre: cripto.CoinInfo.FullName
+        }
+        console.log(objeto)
+        
+      })
+
     }
     consultarAPI();
   }, [])
