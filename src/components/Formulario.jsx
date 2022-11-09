@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import useSelectedMonedas from "../hooks/useSelectedMonedas";
 import { monedas } from "../data/monedas";
@@ -22,8 +22,13 @@ const InputSubmit = styled.input`
 `;
 
 const Formulario = () => {
+
+  const [criptos, setCriptos] = useState([])
+
   //nuestra lista de monedas se lo pasamos a nuestro hook
-  const [SelectMonedas] = useSelectedMonedas("Elije tu moneda", monedas);
+  const [moneda, SelectMonedas] = useSelectedMonedas("Elije tu moneda", monedas);
+  const [criptomoneda, SelectCriptomoneda] = useSelectedMonedas("Elije tu Criptomonedas", criptos);
+  
 
   //Hacemos una consulta a la API
   useEffect(() => {
@@ -42,7 +47,7 @@ const Formulario = () => {
       
         return objeto;
       });
-      console.log(arrayCriptos);
+      setCriptos(arrayCriptos);
     };
     consultarAPI();
   }, []);
